@@ -1,136 +1,151 @@
-# Text Summarization using Transformers
+# Text Summarization using T5 Transformers
 
-An NLP project focused on building a dialogue summarization system using Transformer-based models and Hugging Face.
+An NLP and Generative AI project focused on generating concise summaries of conversations using the T5 (Text-to-Text Transfer Transformer) architecture.
 
-The project uses the **SAMSum dataset** to generate concise summaries of conversations while preserving their important information.
+## Overview
 
-## Project Overview
+This project explores abstractive text summarization using a pretrained T5-small model.
 
-The goal is to fine-tune a T5 Transformer model for dialogue summarization.
+The system takes a dialogue as input and generates a concise summary based on the provided conversational context.
 
-Development is being carried out incrementally, beginning with data exploration, preprocessing and tokenization before moving to model training and evaluation.
+The project uses **T5 for Conditional Generation**, where the generated output (summary) is conditioned on the input dialogue.
 
 ## Tech Stack
 
 - Python
 - PyTorch
-- Hugging Face Transformers
 - Pandas
-- Jupyter Notebook
+- Hugging Face Transformers
 - T5 (Text-to-Text Transfer Transformer)
+- Jupyter Notebook
 
 ## Dataset
 
-The project uses the **SAMSum dataset**, which contains conversational dialogues paired with human-written summaries.
+The project uses the [SAMSum Dataset](https://huggingface.co/datasets/Samsung/samsum), which contains conversational dialogues paired with human-written summaries.
 
-Dataset files:
+The dataset is divided into:
+- Training dataset
+- Validation dataset
+- Test dataset
 
-- `samsum-train.csv`
-- `samsum-validation.csv`
-- `samsum-test.csv`
+For the current implementation, a reproducible sample was selected:
+- Training samples: 4,000
+- Validation samples: 500
+- Random state: 42
 
-### Initial Dataset Sampling
+## Implementation
 
-For the initial development and experimentation phase, a smaller subset has been selected to make preprocessing and training experiments faster.
+### 1. Data Preprocessing
 
-| Dataset | Original size | Selected size |
-|---|---:|---:|
-| Training | 14,732 | 4,000 |
-| Validation | 818 | 500 |
+- Removed unnecessary newline characters.
+- Normalized whitespace.
+- Removed HTML tags.
+- Converted dialogue and summary text to lowercase.
 
-Random sampling is performed using `random_state=42` to ensure reproducibility.
+### 2. Tokenization
 
-The complete dataset can be used in subsequent experiments.
+Used the pretrained T5 tokenizer to convert dialogues and summaries into token IDs.
 
-## Data Preprocessing
+Configuration:
+- Maximum input sequence length: 512
+- Maximum target sequence length: 150
+- Padding and truncation enabled.
 
-The following cleaning operations have been applied to dialogue and summary text:
+### 3. Model Selection
 
-- Removal of newline characters.
-- Removal of extra whitespace.
-- Removal of HTML tags.
-- Removal of leading and trailing spaces.
-- Conversion of text to lowercase.
+Used the pretrained `t5-small` checkpoint with `T5ForConditionalGeneration`.
 
-## Tokenization
+T5 follows an encoder-decoder architecture and supports conditional text generation, making it suitable for dialogue summarization.
 
-The project uses the pretrained `t5-small` tokenizer from Hugging Face.
+The smaller model variant was selected to keep computational requirements manageable.
 
-Current tokenization configuration:
+### 4. Model Training
 
-| Parameter | Dialogue | Summary |
-|---|---:|---:|
-| Maximum sequence length | 512 | 150 |
-| Padding | max_length | max_length |
+The model was fine-tuned using Hugging Face's `Trainer` API.
 
-Tokenized dialogue inputs and summary labels are prepared for the model fine-tuning stage.
+**Training Configuration**
+
+| Parameter | Value |
+|---|---|
+| Pretrained model | t5-small |
+| Epochs | 6 |
+| Weight decay | 0.01 |
+| Training batch size | 8 |
+| Evaluation batch size | 8 |
+| Warmup steps | 500 |
+| Evaluation strategy | Every epoch |
+| Checkpoint saving | Every epoch |
+| Output directory | `./results` |
+
+The training process automatically saves model checkpoints in the configured output directory.
+
+### 5. Training Results
+
+- Training completed for 6 epochs.
+- Total training steps: 3,000.
+- Final training loss: approximately 0.904.
+
+Training and validation metrics are monitored across epochs to observe model learning and generalization.
 
 ## Project Structure
 
 ```text
-Text-Summarizer-Transformers/
+Transformer/
+│
 ├── text_summarizer.ipynb
+├── samsum-train.csv
+├── samsum-validation.csv
+├── samsum-test.csv
 ├── .gitignore
 └── README.md
 ```
 
-The SAMSum CSV files are used locally and are not intended to be committed to GitHub.
-
-## Current Progress
-
-- [x] Initial project setup
-- [x] Library imports and environment verification
-- [x] SAMSum dataset loading
-- [x] Random sampling of training and validation data
-- [x] Text cleaning and preprocessing
-- [x] T5-small tokenizer initialization
-- [x] Training and validation data tokenization
-- [ ] Transformer model implementation
-- [ ] Model training and fine-tuning
-- [ ] Model evaluation
-- [ ] Summary generation and inference
-- [ ] Application integration
-
-## Development Environment
-
-The project is currently being developed locally using:
-
-- macOS (Apple Silicon)
-- Jupyter Notebook
-- PyTorch with Apple Metal Performance Shaders (MPS), where supported
-
 ## Getting Started
 
-Clone the repository:
+### 1. Clone the repository
 
 ```bash
 git clone YOUR_REPOSITORY_URL
-cd Text-Summarizer-Transformers
+cd Transformer
 ```
 
-Create and activate a virtual environment:
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-```
-
-Install the required libraries:
+### 2. Install dependencies
 
 ```bash
 pip install "transformers[torch]" pandas
 ```
 
-Launch JupyterLab:
+### 3. Prepare the dataset
+
+Place the SAMSum CSV files in the project root directory:
+
+- `samsum-train.csv`
+- `samsum-validation.csv`
+- `samsum-test.csv`
+
+### 4. Launch JupyterLab
 
 ```bash
 jupyter lab
 ```
 
-Open `text_summarizer.ipynb` to explore the implementation.
+Open `text_summarizer.ipynb` and execute the notebook cells.
 
-Ensure the SAMSum CSV files are available in the project directory before running the notebook.
+## Current Progress
+
+- [x] Dataset loading and exploration
+- [x] Data preprocessing
+- [x] Tokenization using T5 tokenizer
+- [x] Pretrained T5-small model initialization
+- [x] Device configuration
+- [x] Training configuration using Hugging Face Trainer
+- [x] Model fine-tuning for 6 epochs
+- [ ] Model evaluation and performance analysis
+- [ ] Generate summaries from custom dialogues
+- [ ] Compare generated summaries with reference summaries
 
 ## Project Status
 
-**In Progress** — Initial data preparation and tokenization have been completed. The next stage will focus on implementing and fine-tuning the T5 model.
+**In Progress**
+
+The initial model fine-tuning stage has been completed. Further work will focus on evaluating the model and generating summaries from unseen dialogues.
