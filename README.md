@@ -2,7 +2,7 @@
 
 **An End-to-End NLP Project | T5 | Hugging Face | PyTorch | FastAPI**
 
-An NLP project focused on building an intelligent dialogue summarization system using Transformer-based sequence-to-sequence models. The system is designed to transform lengthy conversations into concise, meaningful summaries while preserving their essential information.
+An NLP project focused on building an intelligent dialogue summarization system using Transformer-based sequence-to-sequence models. The system aims to transform lengthy conversations into concise, meaningful summaries while preserving their essential information.
 
 The project uses the **SAMSum conversational dataset** and fine-tunes the pretrained **T5-small model** using Hugging Face Transformers.
 
@@ -20,7 +20,8 @@ This project aims to address that challenge by developing a dialogue summarizati
 - Fine-tunes a pretrained T5 Transformer model.
 - Generates concise summaries using beam search.
 - Provides a reusable summarization function for inference.
-- Plans to expose the summarization functionality through a web application.
+- Presents an initial user interface for text summarization.
+- Plans to integrate the trained model with a FastAPI backend.
 
 The project follows a progressive development approach, starting with model development and moving towards application integration and deployment.
 
@@ -35,9 +36,9 @@ The project follows a progressive development approach, starting with model deve
 | Tokenization | T5Tokenizer |
 | Data Processing | Pandas |
 | Model Training | Hugging Face Trainer API |
-| Development Environment | Jupyter Notebook |
+| Development Environment | Jupyter Notebook, VS Code |
+| Frontend | HTML, CSS |
 | Backend (Planned) | FastAPI |
-| Frontend (Planned) | HTML, CSS, JavaScript |
 | Hardware Acceleration | Apple Metal Performance Shaders (MPS), where supported |
 
 ## 3. Dataset
@@ -176,11 +177,49 @@ The summarization function has been tested using a custom dialogue discussing:
 
 The fine-tuned model successfully generated a concise summary capturing the central ideas of the conversation.
 
-This confirms that the initial end-to-end inference pipeline is functional. Systematic evaluation of summary quality remains a future task.
+This confirms that the initial inference pipeline is functional. Systematic evaluation of summary quality remains a future task.
 
----
+## 9. Frontend Development
 
-## 9. Development Roadmap
+The initial frontend interface has been developed using **HTML and CSS**.
+
+The objective is to provide a simple, intuitive interface through which users can enter conversational text and view the generated summary.
+
+### 9.1 User Interface Components
+
+The initial interface includes:
+
+- **Application Heading:** Displays the Text Summarizer application title.
+- **Model Identification:** Introduces the application as a Hugging Face Transformer-based summarization system.
+- **Text Input Area:** Provides a textarea for entering or pasting dialogue.
+- **Submit Button:** Provides the interface control for submitting text for summarization.
+- **Summary Output Section:** A dedicated area designed to display the generated summary.
+
+### 9.2 Styling and Layout
+
+The interface uses embedded CSS within `index.html`.
+
+The implemented styling includes:
+
+- Arial typography for readability.
+- A light background (`#FFF7ED`) and white content container.
+- A centered layout with a maximum container width of 600px.
+- Rounded corners and subtle box shadows.
+- Consistent spacing and padding.
+- Styled textarea and submit button.
+- Button hover effects.
+- A highlighted summary output section.
+
+### 9.3 Frontend Project Files
+
+| File | Description |
+|---|---|
+| `index.html` | Contains the HTML structure and CSS styling of the application. |
+| `app.py` | Reserved for FastAPI backend development and model integration. |
+
+**Current implementation status:** The initial frontend structure and styling are complete. Backend functionality, API communication and dynamic summary generation through the interface are still under development.
+
+## 10. Development Roadmap
 
 The project is being developed in stages, following the accompanying course implementation.
 
@@ -201,22 +240,13 @@ The project is being developed in stages, following the accompanying course impl
 
 ### Phase 2 — Frontend Development
 
-*Upcoming*
+- [x] HTML structure for the summarization interface
+- [x] CSS styling and layout
+- [x] User input area for conversational text
+- [x] Submit button
+- [x] Summary output section
 
-- [ ] HTML structure for the summarization interface
-- [ ] CSS styling and layout
-- [ ] User input area for conversational text
-- [ ] Summary display interface
-
-### Phase 3 — Client-Server Integration
-
-*Upcoming*
-
-- [ ] Understanding the client-server architecture
-- [ ] Connecting the frontend with the backend
-- [ ] Establishing communication between the user interface and summarization logic
-
-### Phase 4 — Backend Development with FastAPI
+### Phase 3 — Backend Development with FastAPI
 
 *Upcoming*
 
@@ -227,16 +257,18 @@ The project is being developed in stages, following the accompanying course impl
 - [ ] Processing user requests
 - [ ] Returning generated summaries to the frontend
 
-### Phase 5 — Frontend and Backend Integration
+### Phase 4 — Client-Server Integration
 
 *Upcoming*
 
+- [ ] Understanding the client-server architecture
+- [ ] Connecting the frontend with the backend
 - [ ] Implementing JavaScript logic
 - [ ] Connecting frontend components with FastAPI endpoints
 - [ ] Handling user input and API responses
 - [ ] Displaying generated summaries dynamically
 
-### Phase 6 — Final Application and Demonstration
+### Phase 5 — Final Application and Demonstration
 
 *Upcoming*
 
@@ -245,34 +277,33 @@ The project is being developed in stages, following the accompanying course impl
 - [ ] User interface improvements
 - [ ] Final project demonstration
 
----
+## 11. Project Structure
 
-## 10. Project Structure
-
-The repository currently contains the notebook-based model implementation and project documentation. Additional application files will be introduced during the upcoming development stages.
+The repository is organised into model development and application development components.
 
 ```text
 Text-Summarizer-Transformers/
 │
+├── TextSummarizerApp/
+│   ├── app.py
+│   ├── index.html
+│   └── saved_summary_model/    # Local model artifacts
+│
 ├── text_summarizer.ipynb
-├── README.md
-├── .gitignore
 │
 ├── samsum-train.csv
 ├── samsum-validation.csv
 ├── samsum-test.csv
 │
-├── saved_summary_model/
-│
-├── app.py                 # Planned backend
-├── index.html             # Planned frontend
-│
-└── results/               # Training outputs
+├── .gitignore
+└── README.md
 ```
 
-**Note:** Dataset files, saved model weights, training outputs, virtual environments and temporary notebook files are maintained locally and excluded from Git tracking.
+The `text_summarizer.ipynb` notebook contains the model development and experimentation workflow, while `TextSummarizerApp/` contains the application frontend and the planned backend implementation.
 
-## 11. Getting Started
+**Note:** The trained model directory is maintained locally and excluded from Git tracking because model weights can be large. Dataset and other project files are managed separately.
+
+## 12. Getting Started
 
 ### Clone the Repository
 
@@ -298,7 +329,7 @@ pip install "transformers[torch]" pandas sentencepiece jupyter
 
 ### Prepare the Dataset
 
-Place the SAMSum CSV files in the project directory.
+Ensure the SAMSum CSV files are available in the project directory before running the notebook.
 
 ### Launch JupyterLab
 
@@ -308,29 +339,29 @@ jupyter lab
 
 Open `text_summarizer.ipynb` and execute the notebook cells in sequence.
 
-**Note:** The saved model directory is generated after model fine-tuning. It is not included in the Git repository.
+The saved model directory is generated after model fine-tuning and is used by the application during the backend integration stage.
 
----
-
-## 12. Future Improvements
+## 13. Future Improvements
 
 Potential areas for further experimentation include:
 
 - Training on the complete SAMSum dataset.
-- Evaluating generated summaries using ROUGE and other suitable NLP metrics.
+- Evaluating generated summaries using ROUGE and other suitable NLP evaluation metrics.
 - Comparing different training configurations.
 - Improving summary quality and inference performance.
-- Enhancing the application interface.
-- Integrating the model into a complete web-based application.
+- Completing the FastAPI backend.
+- Integrating the frontend with the summarization API.
+- Enhancing the user interface.
+- Performing end-to-end application testing.
 
-## 13. Project Status
+## 14. Project Status
 
 **Status: In Progress**
 
-The initial model development, fine-tuning, model persistence and core dialogue summarization pipeline have been implemented and tested.
+The initial model development, fine-tuning, model persistence, core dialogue summarization pipeline and frontend interface have been implemented.
 
-The next development stage focuses on building the frontend, developing the FastAPI backend and integrating both components into a functional text summarization application.
+The next development stage focuses on building the FastAPI backend, loading the saved model for inference, and integrating the frontend with the backend to create a functional text summarization application.
 
 ---
 
-**Built as part of
+**Built as part of an ongoing exploration of Natural Language Processing, Transformer architectures and practical AI application development.**
