@@ -133,16 +133,20 @@ Open `text_summarizer.ipynb` and execute the notebook cells.
 
 ## Current Progress
 
-- [x] Dataset loading and exploration
-- [x] Data preprocessing
-- [x] Tokenization using T5 tokenizer
-- [x] Pretrained T5-small model initialization
-- [x] Device configuration
-- [x] Training configuration using Hugging Face Trainer
-- [x] Model fine-tuning for 6 epochs
-- [ ] Model evaluation and performance analysis
-- [ ] Generate summaries from custom dialogues
-- [ ] Compare generated summaries with reference summaries
+- [x] Initial project setup
+- [x] Library imports and environment verification
+- [x] SAMSum dataset loading
+- [x] Random sampling (4,000 training and 500 validation)
+- [x] Data cleaning and preprocessing
+- [x] T5-small tokenizer initialization
+- [x] Training and validation data tokenization
+- [x] T5 model fine-tuning
+- [x] Saving the model and tokenizer
+- [x] Reloading the saved model and tokenizer
+- [ ] Model evaluation
+- [ ] Summary generation and inference
+- [ ] Application integration
+
 
 ## Project Status
 
