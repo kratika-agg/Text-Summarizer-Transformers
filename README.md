@@ -25,7 +25,7 @@ This project aims to address that challenge by developing a dialogue summarizati
 
 The project follows a progressive development approach, starting with model development and moving towards application integration and deployment.
 
-## 2. Technology Stack and components
+## 2. Technology Stack 
 
 | Category | Technologies |
 |---|---|
