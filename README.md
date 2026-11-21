@@ -195,7 +195,7 @@ The initial interface includes:
 - **Submit Button:** Provides the interface control for submitting text for summarization.
 - **Summary Output Section:** A dedicated area designed to display the generated summary.
 
-### 9.2 Styling and Layout
+### 9.2 Styling and Layout and UI
 
 The interface uses embedded CSS within `index.html`.
 
