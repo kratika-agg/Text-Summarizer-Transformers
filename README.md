@@ -8,7 +8,7 @@ The project uses the **SAMSum conversational dataset** and fine-tunes the pretra
 
 ---
 
-## 1. Project Overview
+## 1. Project Overview and Summary 
 
 Conversations often contain redundant information, multiple speakers, and lengthy exchanges that make it difficult to identify the most important information quickly.
 
