@@ -277,7 +277,7 @@ The project is being developed in stages, following the accompanying course impl
 - [ ] User interface improvements
 - [ ] Final project demonstration
 
-## 11. Project Structure
+## 11. Project Structure and Components
 
 The repository is organised into model development and application development components.
 
