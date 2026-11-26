@@ -219,7 +219,7 @@ The implemented styling includes:
 
 **Current implementation status:** The initial frontend structure and styling are complete. Backend functionality, API communication and dynamic summary generation through the interface are still under development.
 
-## 10. Development Roadmap
+## 10. Development Roadmap amd Summary 
 
 The project is being developed in stages, following the accompanying course implementation.
 
